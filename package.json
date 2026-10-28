@@ -24,8 +24,5 @@
   "devDependencies": {
     "lefthook": "^1.11.13",
     "next": "16.2.12"
-  },
-  "dependencies": {
-    "pnpm": "^12.15.0"
   }
 }
