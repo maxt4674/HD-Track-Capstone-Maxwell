@@ -55,15 +55,15 @@ export default function HistoricalEventsClient() {
     }
   }, [])
 
-    useEffect(() => {
+  useEffect(() => {
     const timeoutId = window.setTimeout(() => {
-        void loadEvents(initialFilters);
-    }, 0);
+      void loadEvents(initialFilters)
+    }, 0)
 
     return () => {
-        window.clearTimeout(timeoutId);
-    };
-    }, [loadEvents]);
+      window.clearTimeout(timeoutId)
+    }
+  }, [loadEvents])
 
   const applyFilters = () => {
     if (!filters.startDate || !filters.endDate || filters.startDate > filters.endDate) {
