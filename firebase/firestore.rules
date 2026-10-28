@@ -2,6 +2,16 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // Historical event records are managed by trusted server code.
+    match /historicalEvents/{eventId} {
+      allow read, write: if false;
+    }
+
+    // Query history is managed by trusted server code.
+    match /heatmapQueries/{queryId} {
+      allow read, write: if false;
+    }
+
     // ── Helper functions ───────────────────────────────────────────────────
 
     function isAuthenticated() {

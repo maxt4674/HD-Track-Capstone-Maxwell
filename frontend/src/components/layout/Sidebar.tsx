@@ -5,6 +5,7 @@ const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/profile', label: 'Profile', icon: User },
   { href: '/settings', label: 'Settings', icon: Settings },
+  { href: "/historical-events", label: "Historical Events", icon: User},
 ]
 
 export function Sidebar() {
