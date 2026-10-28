@@ -84,45 +84,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let active = true
 
-    const unsubscribe = onAuthStateChanged(
-      getClientAuth(),
-      async (firebaseUser) => {
-        try {
-          if (!firebaseUser || !firebaseUser.emailVerified) {
-            if (!active) return
-
-            setUser(null)
-            setProfile(null)
-
-            if (!firebaseUser) {
-              await clearSessionCookie()
-            }
-
-            return
-          }
-
-          const userProfile = await syncUserProfile(firebaseUser)
-
-          if (!active) return
-
-          setUser(firebaseUser)
-          setProfile(userProfile)
-
-          await setSessionCookie()
-        } catch (error) {
-          console.error('Firebase authentication/profile sync failed:', error)
-
+    const unsubscribe = onAuthStateChanged(getClientAuth(), async (firebaseUser) => {
+      try {
+        if (!firebaseUser || !firebaseUser.emailVerified) {
           if (!active) return
 
           setUser(null)
           setProfile(null)
-        } finally {
-          if (active) {
-            setLoading(false)
+
+          if (!firebaseUser) {
+            await clearSessionCookie()
           }
+
+          return
+        }
+
+        const userProfile = await syncUserProfile(firebaseUser)
+
+        if (!active) return
+
+        setUser(firebaseUser)
+        setProfile(userProfile)
+
+        await setSessionCookie()
+      } catch (error) {
+        console.error('Firebase authentication/profile sync failed:', error)
+
+        if (!active) return
+
+        setUser(null)
+        setProfile(null)
+      } finally {
+        if (active) {
+          setLoading(false)
         }
       }
-    )
+    })
 
     return () => {
       active = false

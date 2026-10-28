@@ -1,12 +1,12 @@
-import { loadEnvConfig } from "@next/env";
+import { loadEnvConfig } from '@next/env'
 
-loadEnvConfig(process.cwd());
+loadEnvConfig(process.cwd())
 
 async function main() {
-  await import("./seedHistoricalEvents");
+  await import('./seedHistoricalEvents')
 }
 
 main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+  console.error(error)
+  process.exitCode = 1
+})

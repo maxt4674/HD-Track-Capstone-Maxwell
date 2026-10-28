@@ -1,15 +1,12 @@
-"use client";
+'use client'
 
-import type {
-  HeatmapFilters as Filters,
-  EventTypeFilter,
-} from "../types";
+import type { HeatmapFilters as Filters, EventTypeFilter } from '../types'
 
 interface HeatmapFiltersProps {
-  filters: Filters;
-  onChange: (filters: Filters) => void;
-  onApply: () => void;
-  loading: boolean;
+  filters: Filters
+  onChange: (filters: Filters) => void
+  onApply: () => void
+  loading: boolean
 }
 
 export default function HeatmapFilters({
@@ -19,17 +16,14 @@ export default function HeatmapFilters({
   loading,
 }: HeatmapFiltersProps) {
   const inputClass =
-    "w-full rounded-md border border-slate-300 bg-white " +
-    "px-3 py-3 text-[#1A2E61] outline-none " +
-    "focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100";
+    'w-full rounded-md border border-slate-300 bg-white ' +
+    'px-3 py-3 text-[#1A2E61] outline-none ' +
+    'focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100'
 
   return (
     <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-4">
       <div>
-        <label
-          htmlFor="heatmap-start-date"
-          className="mb-2 block font-medium text-[#1A2E61]"
-        >
+        <label htmlFor="heatmap-start-date" className="mb-2 block font-medium text-[#1A2E61]">
           Start Date
         </label>
 
@@ -49,10 +43,7 @@ export default function HeatmapFilters({
       </div>
 
       <div>
-        <label
-          htmlFor="heatmap-end-date"
-          className="mb-2 block font-medium text-[#1A2E61]"
-        >
+        <label htmlFor="heatmap-end-date" className="mb-2 block font-medium text-[#1A2E61]">
           End Date
         </label>
 
@@ -72,10 +63,7 @@ export default function HeatmapFilters({
       </div>
 
       <div>
-        <label
-          htmlFor="heatmap-event-type"
-          className="mb-2 block font-medium text-[#1A2E61]"
-        >
+        <label htmlFor="heatmap-event-type" className="mb-2 block font-medium text-[#1A2E61]">
           Event Type
         </label>
 
@@ -103,16 +91,11 @@ export default function HeatmapFilters({
           type="button"
           onClick={onApply}
           disabled={loading}
-          className="w-full cursor-pointer rounded-md
-                     bg-indigo-600 px-5 py-3 font-medium
-                     text-white transition-colors
-                     hover:bg-indigo-700
-                     disabled:cursor-not-allowed
-                     disabled:opacity-50"
+          className="w-full cursor-pointer rounded-md bg-indigo-600 px-5 py-3 font-medium text-white transition-colors hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {loading ? "Loading..." : "Apply Filters"}
+          {loading ? 'Loading...' : 'Apply Filters'}
         </button>
       </div>
     </div>
-  );
+  )
 }

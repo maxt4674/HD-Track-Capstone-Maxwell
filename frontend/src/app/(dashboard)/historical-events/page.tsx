@@ -1,17 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next'
 
-import { requireAuth } from "@/actions/auth.actions";
+import { requireAuth } from '@/actions/auth.actions'
 
-import HistoricalEventsClient from "@/features/historical-events/components/HistoricalEventsClient";
+import HistoricalEventsClient from '@/features/historical-events/components/HistoricalEventsClient'
 
 export const metadata: Metadata = {
-  title: "Historical Events | Network Intelligence Console",
-  description:
-    "View historical network outages and emergency events across Victoria.",
-};
+  title: 'Historical Events | Network Intelligence Console',
+  description: 'View historical network outages and emergency events across Victoria.',
+}
 
 export default async function HistoricalEventsPage() {
-  await requireAuth();
+  await requireAuth()
 
-  return <HistoricalEventsClient />;
+  return <HistoricalEventsClient />
 }
