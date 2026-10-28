@@ -82,29 +82,49 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    let active = true
+
     const unsubscribe = onAuthStateChanged(getClientAuth(), async (firebaseUser) => {
-      if (firebaseUser) {
-        // Treat unverified users as unauthenticated so they cannot access
-        // protected routes or receive a session cookie before verifying.
-        if (!firebaseUser.emailVerified) {
+      try {
+        if (!firebaseUser || !firebaseUser.emailVerified) {
+          if (!active) return
+
           setUser(null)
           setProfile(null)
-          setLoading(false)
+
+          if (!firebaseUser) {
+            await clearSessionCookie()
+          }
+
           return
         }
-        setUser(firebaseUser)
+
         const userProfile = await syncUserProfile(firebaseUser)
+
+        if (!active) return
+
+        setUser(firebaseUser)
         setProfile(userProfile)
+
         await setSessionCookie()
-      } else {
+      } catch (error) {
+        console.error('Firebase authentication/profile sync failed:', error)
+
+        if (!active) return
+
         setUser(null)
         setProfile(null)
-        await clearSessionCookie()
+      } finally {
+        if (active) {
+          setLoading(false)
+        }
       }
-      setLoading(false)
     })
 
-    return () => unsubscribe()
+    return () => {
+      active = false
+      unsubscribe()
+    }
   }, [])
 
   const signInWithEmail = async (email: string, password: string) => {
